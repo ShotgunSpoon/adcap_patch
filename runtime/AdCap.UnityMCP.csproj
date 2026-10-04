@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>7.3</LangVersion>
+    <AssemblyName>AdCap.UnityMCP</AssemblyName>
+    <RootNamespace>AdCapUnityMCP</RootNamespace>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <Version>1.2.4.9</Version>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="UnityEngine">
+      <HintPath>$(GameManagedDir)\UnityEngine.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(GameManagedDir)\UnityEngine.CoreModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.AudioModule">
+      <HintPath>$(GameManagedDir)\UnityEngine.AudioModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.InputModule">
+      <HintPath>$(GameManagedDir)\UnityEngine.InputModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>$(GameManagedDir)\UnityEngine.UI.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule">
+      <HintPath>$(GameManagedDir)\UnityEngine.UIModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+
+  </ItemGroup>
+</Project>
