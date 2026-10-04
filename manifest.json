@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "version": "1.2.4.9",
-  "published": "2026-10-04T16:14:42Z",
-  "release_notes": "Fixes unlock progress being linked to the rewarded business. Downloads are now hosted on GitHub.",
+  "version": "1.2.4.10",
+  "published": "2026-10-04T16:24:38Z",
+  "release_notes": "Fixes requirement information unavailable in Unlocks by preserving raw model identifiers during row lookup.",
   "files": [
     {
       "name": "Assembly-CSharp.dll",
-      "url": "https://github.com/ShotgunSpoon/adcap_patch/releases/download/v1.2.4.9/Assembly-CSharp.dll",
+      "url": "https://github.com/ShotgunSpoon/adcap_patch/releases/download/v1.2.4.10/Assembly-CSharp.dll",
       "target": "adventure-capitalist_Data/Managed/Assembly-CSharp.dll",
       "sha256": "415a959b1a72b30294e8017c13330f5edc42b6a297df351c1cf7377b6bb95453",
       "accepted_installed_sha256": [
@@ -16,13 +16,13 @@
     },
     {
       "name": "AdCap.UnityMCP.dll",
-      "url": "https://github.com/ShotgunSpoon/adcap_patch/releases/download/v1.2.4.9/AdCap.UnityMCP.dll",
+      "url": "https://github.com/ShotgunSpoon/adcap_patch/releases/download/v1.2.4.10/AdCap.UnityMCP.dll",
       "target": "adventure-capitalist_Data/Managed/AdCap.UnityMCP.dll",
-      "sha256": "a3bebaa3c07cde427cd3f7d01300556bcb242ff37649a611d9a37abdba8c05e7"
+      "sha256": "af230ac15b855b49b731cef55409d5138d67f86d226806968347e0b2c73c6698"
     },
     {
       "name": "nvdaControllerClient32.dll",
-      "url": "https://github.com/ShotgunSpoon/adcap_patch/releases/download/v1.2.4.9/nvdaControllerClient32.dll",
+      "url": "https://github.com/ShotgunSpoon/adcap_patch/releases/download/v1.2.4.10/nvdaControllerClient32.dll",
       "target": "nvdaControllerClient32.dll",
       "sha256": "a0d193883dcfbeae6e69aa00a0c5aa52a194b1a265617b8f920d0c7d4164c587"
     }

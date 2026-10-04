@@ -30,7 +30,8 @@ namespace AdCapUnityMCP
                 }
                 foreach (var row in rows)
                 {
-                    if (!string.Equals(ObjectTextMember(row, "Id"), gridView.name, StringComparison.Ordinal)) continue;
+                    // Machine identifiers must bypass speech formatting (which splits camel case).
+                    if (!string.Equals(Convert.ToString(ObjectMember(row, "Id")), gridView.name, StringComparison.Ordinal)) continue;
                     var elements = ObjectMember(row, "Elements") as IEnumerable;
                     if (elements != null && slot >= 0) unlock = elements.Cast<object>().ElementAtOrDefault(slot);
                     break;
@@ -42,7 +43,7 @@ namespace AdCapUnityMCP
             var amount = ObjectDoubleMember(unlock, "amountToEarn");
             var ventures = ObjectMember(state, "VentureModels") as IEnumerable;
             var models = ventures == null ? new List<object>() : ventures.Cast<object>().Where(v => v != null).ToList();
-            var requiredName = ObjectTextMember(unlock, "ventureName");
+            var requiredName = Convert.ToString(ObjectMember(unlock, "ventureName"));
             string name;
             string progress;
             if (unlock.GetType().Name == "EveryVentureUnlock")
@@ -55,8 +56,8 @@ namespace AdCapUnityMCP
             }
             else if (unlock.GetType().Name == "SingleVentureUnlock")
             {
-                name = (string.IsNullOrEmpty(requiredName) ? "Business" : requiredName) + " automatic unlock";
-                var venture = models.FirstOrDefault(v => string.Equals(ObjectTextMember(v, "Name"), requiredName, StringComparison.Ordinal));
+                name = (string.IsNullOrEmpty(requiredName) ? "Business" : Clean(requiredName)) + " automatic unlock";
+                var venture = models.FirstOrDefault(v => string.Equals(Convert.ToString(ObjectMember(v, "Name")), requiredName, StringComparison.Ordinal));
                 var owned = ObjectDoubleMember(venture, "TotalOwned");
                 progress = !ValidUnlockNumber(owned) || !ValidUnlockNumber(amount)
                     ? "Requirement information unavailable"

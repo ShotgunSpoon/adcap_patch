@@ -29,9 +29,16 @@ namespace AdCapUnityMCP
         private class PanelItem { public string Name; public string Description; }
         private static Component ComponentAncestor(Transform t, string name) { while(t != null) { if(t.component != null && t.component.GetType().Name == name) return t.component; t=t.parent; } return null; }
         private static object ObjectMember(object x, string name) { if(x == null) return null; for(var t=x.GetType();t != null;t=t.BaseType) { var f=t.GetField(name,BindingFlags.Instance|BindingFlags.Public|BindingFlags.NonPublic|BindingFlags.DeclaredOnly); if(f != null) return f.GetValue(x); var p=t.GetProperty(name,BindingFlags.Instance|BindingFlags.Public|BindingFlags.NonPublic|BindingFlags.DeclaredOnly); if(p != null) return p.GetValue(x); } return null; }
-        private static string ObjectTextMember(object x,string n) => Convert.ToString(ObjectMember(x,n));
+        private static string ObjectTextMember(object x,string n) => Clean(Convert.ToString(ObjectMember(x,n)));
         private static double ObjectDoubleMember(object x,string n) { var v=ObjectMember(x,n); if(v == null) return double.NaN; return Convert.ToDouble(ObjectMember(v,"Value") ?? v); }
-        private static string Clean(string s) => s;
+        private static string Clean(string s)
+        {
+            if (string.IsNullOrEmpty(s)) return "";
+            s = s.Replace("_", " ").Replace("Btn ", "").Replace("btn ", "").Replace("\n", " ").Trim();
+            s = System.Text.RegularExpressions.Regex.Replace(s, "<[^>]+>", "");
+            s = System.Text.RegularExpressions.Regex.Replace(s, "\\s+", " ");
+            return System.Text.RegularExpressions.Regex.Replace(s, "([a-z])([A-Z])", "$1 $2");
+        }
         private static string TextNamed(Transform t,string n) => "MISLEADING REWARD";
         private static string InvokeTextMethod(object x,string n) => Convert.ToString(x.GetType().GetMethod(n)?.Invoke(x,null));
         public static string Read(Transform t) { var item=UnlockViewItem(t); return item.Name + "; " + item.Description; }
@@ -66,6 +73,9 @@ class Program
         Check(AccessibilityNavigator.Read(view0.transform).Contains("Lowest owned 0 of 333"),"Unowned businesses included");
         row.Elements[0]=new SingleVentureUnlock{ventureName="Unowned",amountToEarn=10,reward="Something else"};
         Check(AccessibilityNavigator.Read(view0.transform).Contains("Current 0 of 10 owned. 10 remaining"),"Zero ownership");
+        panel.gameState.VentureModels.Add(new Venture("camelCase_Business",7));
+        row.Elements[0]=new SingleVentureUnlock{ventureName="camelCase_Business",amountToEarn=10,reward="Everything"};
+        Check(AccessibilityNavigator.Read(view0.transform).Contains("Current 7 of 10 owned. 3 remaining"),"Raw business identity survives speech formatting");
         row.Elements[0]=new SingleVentureUnlock{ventureName="Missing",amountToEarn=400,reward="Pimp Thy Steed"};
         Check(AccessibilityNavigator.Read(view0.transform).Contains("Requirement information unavailable"),"Missing business never guessed from reward");
         gridView.name="RecycledButNotBound";
